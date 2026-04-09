@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="recordGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#333333;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="centerGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#8855ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5533cc;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  <!-- Vinyl record background -->
+  <circle cx="100" cy="100" r="95" fill="url(#recordGradient)" stroke="#333" stroke-width="2"/>
+  <!-- Vinyl grooves -->
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#222" stroke-width="1" opacity="0.5"/>
+  <circle cx="100" cy="100" r="65" fill="none" stroke="#222" stroke-width="1" opacity="0.5"/>
+  <circle cx="100" cy="100" r="50" fill="none" stroke="#222" stroke-width="1" opacity="0.5"/>
+  <!-- Center label -->
+  <circle cx="100" cy="100" r="35" fill="url(#centerGradient)"/>
+  <!-- Center hole -->
+  <circle cx="100" cy="100" r="8" fill="#111"/>
+  <!-- Shine effect -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#fff" stroke-width="2" opacity="0.1"/>
+</svg>

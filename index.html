@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ GER</title>
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">DJ GER</div>
+    <div class="topbar-links">
+      <nav>
+        <a href="#bio">Biografía</a>
+        <a href="#videos">Videos</a>
+        <a href="#photos">Fotos</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+      <div class="language-switcher topbar-language-switcher" aria-label="Select language">
+        <button class="lang-button active" data-lang="en" type="button" aria-label="English"><img src="static/eng_flag.webp" alt="English" /></button>
+        <button class="lang-button" data-lang="es" type="button" aria-label="Español"><img src="static/sp_flag.webp" alt="Español" /></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Selector / live set / producción</p>
+        <h1 id="hero-title">DJ GER</h1>
+        <p id="hero-subtitle">Ritmos urbanos y electrónica para clubes, fiestas y experiencias en vivo.</p>
+        <div class="hero-actions">
+          <a id="instagram-link" class="button" href="#" target="_blank" rel="noopener">Instagram</a>
+          <a id="youtube-link" class="button" href="#" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image"></div>
+      </div>
+    </section>
+
+    <section id="bio" class="section bio">
+      <div class="section-head">
+        <span class="section-label">Biografía</span>
+        <h2 id="bio-title">Biografía</h2>
+      </div>
+      <p id="bio-text">DJ GER une energía dance y beats actuales con una presencia intimista en cabina. Con sets redondos y transitions fluidas, su propuesta genera el ambiente perfecto para la pista y el escenario.</p>
+    </section>
+
+    <section id="videos" class="section videos">
+      <div class="section-head">
+        <span class="section-label">Videos</span>
+        <h2 id="videos-title">Videos</h2>
+      </div>
+      <div id="video-list" class="video-grid"></div>
+    </section>
+
+    <section id="photos" class="section photos">
+      <div class="section-head">
+        <span class="section-label">Fotos</span>
+        <h2 id="photos-title">Fotos</h2>
+      </div>
+      <div class="photo-grid">
+        <img src="static/photos/photo-1.svg" alt="Foto 1" class="photo" />
+        <img src="static/photos/photo-2.svg" alt="Foto 2" class="photo" />
+        <img src="static/photos/photo-3.svg" alt="Foto 3" class="photo" />
+        <img src="static/photos/photo-4.svg" alt="Foto 4" class="photo" />
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="section-head">
+        <span class="section-label">Contacto</span>
+        <h2 id="contact-title">Contacto</h2>
+      </div>
+      <p id="contact-description">Contacta a DJ GER para shows, residencias y eventos exclusivos. Instagram es el canal oficial de booking y novedades.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a id="instagram-bottom" class="button outline" href="#" target="_blank" rel="noopener">Seguir en Instagram</a>
+        <a id="youtube-bottom" class="button outline" href="#" target="_blank" rel="noopener">Seguir en YouTube</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p id="footer-text">© 2026 DJ GER. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
