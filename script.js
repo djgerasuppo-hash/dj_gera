@@ -100,19 +100,31 @@ function applyContent(content) {
   document.title = content['dj.name'] || 'DJ GER';
   document.getElementById('hero-title').textContent = content['dj.name'] || 'DJ GER';
   document.getElementById('hero-subtitle').textContent = content['hero.subtitle'] || '';
-  document.getElementById('instagram-link').textContent = content['hero.button'] || 'Instagram';
-  document.getElementById('instagram-link').href = links['instagram.url'] || '#';
+  const instagramTopLink = document.getElementById('instagram-link');
+  const instagramBottomLink = document.getElementById('instagram-bottom');
+  const youtubeTopLink = document.getElementById('youtube-link');
+  const youtubeBottomLink = document.getElementById('youtube-bottom');
+  const instagramUrl = links['instagram.url'] || instagramTopLink.getAttribute('href') || '#';
+  const youtubeUrl = links['youtube.url'] || youtubeTopLink.getAttribute('href') || '#';
+  instagramTopLink.textContent = content['hero.button'] || 'Instagram';
+  instagramTopLink.href = instagramUrl;
   document.getElementById('bio-title').textContent = content['bio.title'] || 'Biography';
   document.getElementById('bio-text').textContent = content['bio.text'] || '';
   document.getElementById('photos-title').textContent = content['photos.title'] || 'Photos';
   document.getElementById('videos-title').textContent = content['videos.title'] || 'Videos';
   document.getElementById('contact-title').textContent = content['contact.title'] || 'Contact';
   document.getElementById('contact-description').textContent = content['contact.description'] || '';
-  document.getElementById('instagram-bottom').href = links['instagram.url'] || '#';
-  document.getElementById('instagram-bottom').textContent = content['instagram.username'] || 'Instagram';
-  document.getElementById('youtube-link').href = links['youtube.url'] || '#';
-  document.getElementById('youtube-bottom').href = links['youtube.url'] || '#';
-  document.getElementById('youtube-bottom').textContent = content['youtube.username'] || 'YouTube';
+  const contactEmail = links['contact.email'] || 'Djgerasuppo@gmail.com';
+  const contactEmailLink = document.getElementById('contact-email-link');
+  if (contactEmailLink) {
+    contactEmailLink.textContent = contactEmail;
+    contactEmailLink.href = `mailto:${contactEmail}`;
+  }
+  instagramBottomLink.href = instagramUrl;
+  instagramBottomLink.textContent = content['instagram.username'] || 'Instagram';
+  youtubeTopLink.href = youtubeUrl;
+  youtubeBottomLink.href = youtubeUrl;
+  youtubeBottomLink.textContent = content['youtube.username'] || 'YouTube';
   document.getElementById('footer-text').textContent = content['footer.text'] || '© 2026 DJ GER.';
 }
 
@@ -215,3 +227,4 @@ function setupPhotoLightbox() {
 }
 
 window.addEventListener('click', changeLanguage);
+
