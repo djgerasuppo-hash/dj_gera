@@ -9,3 +9,7 @@ Esta carpeta contiene los activos locales de la web estática de DJ GER.
 - `videos.properties` → lista de videos de YouTube.
 
 Puedes reemplazar estos archivos por tu propio contenido y mantener las mismas rutas si quieres que funcione sin cambiar el HTML/CSS.
+
+
+PYTHON UP
+python -m http.server 8000

@@ -163,9 +163,11 @@ main {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url('static/hero.svg');
-  background-size: cover;
+  background-image: url('static/photos/photo-6.jpeg');
+  background-size: 80%;
   background-position: center;
+  background-repeat: no-repeat;
+  background-color: #090612;
   filter: saturate(1.1) contrast(1.05) brightness(0.9);
 }
 
@@ -320,6 +322,87 @@ main {
   width: 100%;
   height: auto;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+  cursor: zoom-in;
+  transition: transform 0.25s ease;
+}
+
+.photo:hover,
+.photo:focus-visible {
+  transform: scale(1.02);
+}
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.93);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 30;
+  text-align: center;
+}
+
+.photo-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.05);
+}
+
+.lightbox-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100%, 90vw);
+  max-height: min(100%, 86vh);
+  border-radius: 28px;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45);
+  transform: scale(0.96);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin: 0 auto;
+}
+
+.photo-lightbox.active .lightbox-image {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.lightbox-caption {
+  margin-top: 1rem;
+  color: #f4f4f8;
+  font-size: 0.95rem;
+  text-align: center;
+  max-width: 90vw;
 }
 
 .photo-1 { }

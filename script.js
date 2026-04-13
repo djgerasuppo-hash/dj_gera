@@ -2,6 +2,7 @@ const supportedLanguages = ['en', 'es'];
 const defaultLanguage = 'en';
 let currentLanguage = localStorage.getItem('djger-language') || defaultLanguage;
 const contents = {};
+let links = {};
 
 async function fetchProperties(url) {
   const response = await fetch(url);
@@ -41,6 +42,15 @@ async function loadContents() {
       }
     })
   );
+}
+
+async function loadLinks() {
+  try {
+    links = await fetchProperties('static/links.properties');
+  } catch (error) {
+    console.warn('No se pudo cargar links.properties:', error);
+    links = {};
+  }
 }
 
 function getYoutubeEmbedUrl(url) {
@@ -91,17 +101,17 @@ function applyContent(content) {
   document.getElementById('hero-title').textContent = content['dj.name'] || 'DJ GER';
   document.getElementById('hero-subtitle').textContent = content['hero.subtitle'] || '';
   document.getElementById('instagram-link').textContent = content['hero.button'] || 'Instagram';
-  document.getElementById('instagram-link').href = content['instagram.url'] || '#';
+  document.getElementById('instagram-link').href = links['instagram.url'] || '#';
   document.getElementById('bio-title').textContent = content['bio.title'] || 'Biography';
   document.getElementById('bio-text').textContent = content['bio.text'] || '';
   document.getElementById('photos-title').textContent = content['photos.title'] || 'Photos';
   document.getElementById('videos-title').textContent = content['videos.title'] || 'Videos';
   document.getElementById('contact-title').textContent = content['contact.title'] || 'Contact';
   document.getElementById('contact-description').textContent = content['contact.description'] || '';
-  document.getElementById('instagram-bottom').href = content['instagram.url'] || '#';
+  document.getElementById('instagram-bottom').href = links['instagram.url'] || '#';
   document.getElementById('instagram-bottom').textContent = content['instagram.username'] || 'Instagram';
-  document.getElementById('youtube-link').href = content['youtube.url'] || '#';
-  document.getElementById('youtube-bottom').href = content['youtube.url'] || '#';
+  document.getElementById('youtube-link').href = links['youtube.url'] || '#';
+  document.getElementById('youtube-bottom').href = links['youtube.url'] || '#';
   document.getElementById('youtube-bottom').textContent = content['youtube.username'] || 'YouTube';
   document.getElementById('footer-text').textContent = content['footer.text'] || '© 2026 DJ GER.';
 }
@@ -113,7 +123,7 @@ function setActiveLanguageButton() {
 }
 
 async function renderPage() {
-  await loadContents();
+  await Promise.all([loadContents(), loadLinks()]);
   setActiveLanguageButton();
   const content = contents[currentLanguage] || contents[defaultLanguage] || {};
   applyContent(content);
@@ -124,6 +134,7 @@ async function renderPage() {
 
   if (videoCards.length === 0) {
     list.innerHTML = `<p>${content['videos.empty'] || 'No videos available at the moment.'}</p>`;
+    setupPhotoLightbox();
     return;
   }
 
@@ -140,6 +151,8 @@ async function renderPage() {
       </article>`;
     })
     .join('');
+
+  setupPhotoLightbox();
 }
 
 function changeLanguage(event) {
@@ -161,5 +174,44 @@ renderPage().catch((error) => {
   console.error('Error cargando contenido:', error);
 });
 
+function setupPhotoLightbox() {
+  const lightbox = document.getElementById('photo-lightbox');
+  const lightboxImage = lightbox.querySelector('.lightbox-image');
+  const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+  const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+  function openLightbox(image) {
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt || 'Foto ampliada';
+    lightboxCaption.textContent = image.alt || '';
+    document.body.style.overflow = 'hidden';
+    lightbox.focus();
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImage.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.photo-grid .photo').forEach((image) => {
+    image.addEventListener('click', () => openLightbox(image));
+  });
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox || event.target === lightboxClose) {
+      closeLightbox();
+    }
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+}
+
 window.addEventListener('click', changeLanguage);
-window.addEventListener('DOMContentLoaded', setActiveLanguageButton);

@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-  <rect width="800" height="600" fill="#04121B"/>
-  <circle cx="240" cy="200" r="90" fill="#7A5BFF" opacity="0.38"/>
-  <circle cx="580" cy="420" r="130" fill="#FFDA5B" opacity="0.28"/>
-  <text x="400" y="330" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="42" font-weight="700">FOTO 4</text>
-</svg>
