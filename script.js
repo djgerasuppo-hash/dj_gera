@@ -97,8 +97,8 @@ function buildVideoCards(videos) {
 }
 
 function applyContent(content) {
-  document.title = content['dj.name'] || 'DJ GER';
-  document.getElementById('hero-title').textContent = content['dj.name'] || 'DJ GER';
+  document.title = content['html.title'] || content['dj.name'] || 'Gera Suppo';
+  document.getElementById('hero-title').textContent = content['dj.name'] || 'Gera Suppo';
   document.getElementById('hero-subtitle').textContent = content['hero.subtitle'] || '';
   const instagramTopLink = document.getElementById('instagram-link');
   const instagramBottomLink = document.getElementById('instagram-bottom');
@@ -114,7 +114,7 @@ function applyContent(content) {
   document.getElementById('videos-title').textContent = content['videos.title'] || 'Videos';
   document.getElementById('contact-title').textContent = content['contact.title'] || 'Contact';
   document.getElementById('contact-description').textContent = content['contact.description'] || '';
-  const contactEmail = links['contact.email'] || 'Djgerasuppo@gmail.com';
+  const contactEmail = links['contact.email'] || 'djgerasuppo@gmail.com';
   const contactEmailLink = document.getElementById('contact-email-link');
   if (contactEmailLink) {
     contactEmailLink.textContent = contactEmail;
@@ -125,7 +125,7 @@ function applyContent(content) {
   youtubeTopLink.href = youtubeUrl;
   youtubeBottomLink.href = youtubeUrl;
   youtubeBottomLink.textContent = content['youtube.username'] || 'YouTube';
-  document.getElementById('footer-text').textContent = content['footer.text'] || '© 2026 DJ GER.';
+  document.getElementById('footer-text').textContent = content['footer.text'] || '© 2026 Gera Suppo.';
 }
 
 function setActiveLanguageButton() {

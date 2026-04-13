@@ -78,17 +78,40 @@ main {
 }
 
 .hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
+  position: relative;
+  display: flex;
   align-items: center;
-  padding: 2rem 0 3rem;
+  justify-content: center;
+  min-height: 520px;
+  padding: 3rem 2rem;
   text-align: center;
+  border-radius: 34px;
+  overflow: hidden;
+  background-image: url('static/photos/photo-2.jpeg');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 40px 120px rgba(15, 8, 35, 0.45);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 5, 18, 0.42) 0%, rgba(8, 5, 18, 0.55) 100%),
+    radial-gradient(circle at top right, rgba(29, 155, 240, 0.16), transparent 45%),
+    radial-gradient(circle at bottom left, rgba(156, 117, 255, 0.2), transparent 50%);
 }
 
 .hero-copy {
-  max-width: 100%;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 20px;
+  background: rgba(6, 4, 14, 0.28);
+  backdrop-filter: blur(4px);
 }
 
 .eyebrow {
@@ -153,38 +176,19 @@ main {
 }
 
 .hero-visual {
-  position: relative;
-  min-height: 420px;
+  display: none;
 }
 
 .hero-image {
-  position: absolute;
-  inset: 0;
-  border-radius: 34px;
-  background: linear-gradient(150deg, rgba(255, 63, 180, 0.15), rgba(83, 65, 255, 0.25)),
-              linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08));
-  box-shadow: 0 40px 120px rgba(63, 24, 145, 0.32);
-  overflow: hidden;
+  display: none;
 }
 
 .hero-image::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('static/photos/photo-6.jpeg');
-  background-size: 80%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #090612;
-  filter: saturate(1.1) contrast(1.05) brightness(0.9);
+  content: none;
 }
 
 .hero-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top right, rgba(255, 206, 78, 0.22), transparent 40%),
-              radial-gradient(circle at bottom left, rgba(131, 102, 255, 0.24), transparent 35%);
+  content: none;
 }
 
 .section {
@@ -447,8 +451,8 @@ main {
   }
 
   .hero {
-    padding: 1.5rem 0 2rem;
-    gap: 2rem;
+    min-height: 420px;
+    padding: 2rem 1rem;
   }
 
   .topbar {
