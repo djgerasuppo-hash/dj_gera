@@ -87,7 +87,7 @@ main {
   text-align: center;
   border-radius: 34px;
   overflow: hidden;
-  background-image: url('static/photos/photo-2.jpeg');
+  background-image: url('static/photos/photo-7.jpeg');
   background-size: cover;
   background-position: center;
   box-shadow: 0 40px 120px rgba(15, 8, 35, 0.45);
@@ -280,6 +280,14 @@ main {
   letter-spacing: 0.3px;
 }
 
+.inline-flag {
+  display: inline-block;
+  height: 1em;
+  width: auto;
+  vertical-align: -0.12em;
+  margin: 0 0.25em;
+}
+
 .contact-email {
   text-align: center;
   margin: 1rem auto 1.5rem;
@@ -294,7 +302,7 @@ main {
 
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2rem;
   margin: 0 auto;
 }
@@ -317,6 +325,14 @@ main {
   min-height: 220px;
   border: 0;
   border-radius: 20px;
+}
+
+.video-card video {
+  width: 100%;
+  min-height: 220px;
+  border: 0;
+  border-radius: 20px;
+  background: #000;
 }
 
 .video-card a {

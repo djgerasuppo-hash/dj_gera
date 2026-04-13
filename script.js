@@ -1,5 +1,5 @@
 const supportedLanguages = ['en', 'es'];
-const defaultLanguage = 'en';
+const defaultLanguage = 'es';
 let currentLanguage = localStorage.getItem('djger-language') || defaultLanguage;
 const contents = {};
 let links = {};
@@ -85,7 +85,7 @@ function buildVideoCards(videos) {
 
   return Object.values(groups)
     .map((item) => {
-      const isLocalVideo = item.url && (item.url.endsWith('.mp4') || item.url.endsWith('.webm') || item.url.endsWith('.ogg'));
+      const isLocalVideo = item.url && /\.(mp4|webm|ogg)(\?.*)?$/i.test(item.url);
       return {
         title: item.title,
         url: item.url,
@@ -98,18 +98,25 @@ function buildVideoCards(videos) {
 
 function applyContent(content) {
   document.title = content['html.title'] || content['dj.name'] || 'Gera Suppo';
+  document.getElementById('hero-eyebrow').textContent = content['hero.eyebrow'] || 'DJ / PRODUCER';
   document.getElementById('hero-title').textContent = content['dj.name'] || 'Gera Suppo';
   document.getElementById('hero-subtitle').textContent = content['hero.subtitle'] || '';
+  document.getElementById('hero-social-hint').textContent = content['hero.social_hint'] || 'Visit my social networks';
   const instagramTopLink = document.getElementById('instagram-link');
   const instagramBottomLink = document.getElementById('instagram-bottom');
   const youtubeTopLink = document.getElementById('youtube-link');
   const youtubeBottomLink = document.getElementById('youtube-bottom');
+  const soundcloudTopLink = document.getElementById('soundcloud-link');
   const instagramUrl = links['instagram.url'] || instagramTopLink.getAttribute('href') || '#';
   const youtubeUrl = links['youtube.url'] || youtubeTopLink.getAttribute('href') || '#';
+  const soundcloudUrl = links['soundcloud.url'] || (soundcloudTopLink ? soundcloudTopLink.getAttribute('href') : '#') || '#';
   instagramTopLink.textContent = content['hero.button'] || 'Instagram';
   instagramTopLink.href = instagramUrl;
+  if (soundcloudTopLink) {
+    soundcloudTopLink.href = soundcloudUrl;
+  }
   document.getElementById('bio-title').textContent = content['bio.title'] || 'Biography';
-  document.getElementById('bio-text').textContent = content['bio.text'] || '';
+  renderBioText(content['bio.text'] || '');
   document.getElementById('photos-title').textContent = content['photos.title'] || 'Photos';
   document.getElementById('videos-title').textContent = content['videos.title'] || 'Videos';
   document.getElementById('contact-title').textContent = content['contact.title'] || 'Contact';
@@ -152,14 +159,19 @@ async function renderPage() {
 
   list.innerHTML = videoCards
     .map((video) => {
-      const iframe = video.embed
+      const media = video.embed
         ? `<iframe src="${escapeHtml(video.embed)}" title="${escapeHtml(video.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-        : `<p><a href="${escapeHtml(video.url)}" target="_blank" rel="noopener">Abrir en YouTube</a></p>`;
+        : video.isLocalVideo
+          ? `<video controls preload="metadata" playsinline>
+            <source src="${escapeHtml(video.url)}" type="${getVideoMimeType(video.url)}">
+            Tu navegador no soporta video HTML5.
+          </video>`
+          : `<p><a href="${escapeHtml(video.url)}" target="_blank" rel="noopener">Abrir video</a></p>`;
 
       return `
       <article class="video-card">
         <h3>${escapeHtml(video.title)}</h3>
-        ${iframe}
+        ${media}
       </article>`;
     })
     .join('');
@@ -180,6 +192,13 @@ function changeLanguage(event) {
 
 function escapeHtml(text) {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
+function getVideoMimeType(url) {
+  const lowerCaseUrl = url.toLowerCase();
+  if (/\.webm(\?.*)?$/.test(lowerCaseUrl)) return 'video/webm';
+  if (/\.ogg(\?.*)?$/.test(lowerCaseUrl)) return 'video/ogg';
+  return 'video/mp4';
 }
 
 renderPage().catch((error) => {
@@ -227,4 +246,22 @@ function setupPhotoLightbox() {
 }
 
 window.addEventListener('click', changeLanguage);
+
+function renderBioText(text) {
+  const bioText = document.getElementById('bio-text');
+  bioText.textContent = '';
+
+  const parts = text.split('{arg_flag}');
+  parts.forEach((part, index) => {
+    bioText.appendChild(document.createTextNode(part));
+
+    if (index < parts.length - 1) {
+      const flag = document.createElement('img');
+      flag.src = 'static/arg_flag';
+      flag.alt = 'Bandera de Argentina';
+      flag.className = 'inline-flag';
+      bioText.appendChild(flag);
+    }
+  });
+}
 
