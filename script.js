@@ -251,7 +251,8 @@ function renderBioText(text) {
   const bioText = document.getElementById('bio-text');
   bioText.textContent = '';
 
-  const parts = text.split('{arg_flag}');
+  const textWithAge = text.replaceAll('{current_age}', String(getCurrentAge(1995, 4, 6)));
+  const parts = textWithAge.split('{arg_flag}');
   parts.forEach((part, index) => {
     bioText.appendChild(document.createTextNode(part));
 
@@ -263,5 +264,17 @@ function renderBioText(text) {
       bioText.appendChild(flag);
     }
   });
+}
+
+function getCurrentAge(birthYear, birthMonth, birthDay) {
+  const today = new Date();
+  let age = today.getFullYear() - birthYear;
+  const hasHadBirthday =
+    today.getMonth() + 1 > birthMonth ||
+    (today.getMonth() + 1 === birthMonth && today.getDate() >= birthDay);
+  if (!hasHadBirthday) {
+    age -= 1;
+  }
+  return age;
 }
 
